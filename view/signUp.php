@@ -157,7 +157,7 @@ if(!empty($_GET['siteRedirectUri'])){
 			 }
 			 //Checks Username for Unicode (Invisible spaces)
 			 
-			 if ( /[A-z0-9.-_]/.test(userName)) {
+			 if ( /[\1'"@*|_‎-]/.test(userName)) {
 			     modal.hidePleaseWait();
                             avideoAlert("<?php echo __("Sorry!"); ?>", "<?php echo __("Illegal characters in user field!"); ?>", "error");
 			     return false;
