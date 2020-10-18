@@ -336,8 +336,27 @@ if (!empty($advancedCustomUser->forceLoginToBeTheEmail)) {
             }
             $('#aBasicInfo').tab('show');
             modal.showPleaseWait();
+            var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            var userName = $('#inputUser').val();
+            var userChannel = $('#channelName').val();
+            var userEmail = $('#inputEmail').val();
             var pass1 = $('#inputPassword').val();
             var pass2 = $('#inputPasswordConfirm').val();
+            
+            
+            if(!userEmail.match(mailformat)) {
+	         modal.hidePleaseWait();
+	         avideoAlert("<?php echo __("Sorry!"); ?>", "<?php echo __("Invalid Email!"); ?>", "error");
+	         return false;
+			 }
+	        //Check Username for Unicode
+			 
+			 
+            if (/[\1'"@*|_‎-]/.test(userName || userChannel)) {
+	         modal.hidePleaseWait();
+	         avideoAlert("<?php echo __("Sorry!"); ?>", "<?php echo __("Illegal characters in user field!"); ?>", "error");
+	         return false;
+	        }
             // password dont match
             if (pass1 != '' && pass1 != pass2) {
                 modal.hidePleaseWait();
