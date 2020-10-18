@@ -1,3 +1,9 @@
+# This project was forked
+
+My goal is to adress the major security issues in the site while keeping it updated.
+I do not take ownership over this project.
+
+
 <img src="https://avideo.tube/website/assets/151/images/avideo_platform.png"/>
 
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg?style=flat-square)](https://php.net/)
@@ -151,6 +157,7 @@ In order for you to be able to run AVideo Platform, there are certain tools that
 - PHP 5.6+
 - MySQL 5.0+
 - Apache web server 2.x (with mod_rewrite enabled)
+- Nginx web server (for live streaming)
 
 # Roadmap
 
