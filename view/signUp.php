@@ -35,7 +35,7 @@ if(!empty($_GET['siteRedirectUri'])){
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-2"></div>
                 <div class="col-xs-12 col-sm-12 col-lg-8">
-                    <form class="form-compact well form-horizontal"  id="updateUserForm" onsubmit="">
+                    <form class="form-compact well form-horizontal" name="signup" id="updateUserForm" onsubmit="">
                         <fieldset>
                             <legend class="hidden-xs"><?php echo __("Sign Up"); ?></legend>
                             <div class="form-group">
@@ -50,20 +50,20 @@ if(!empty($_GET['siteRedirectUri'])){
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label hidden-xs"><?php echo __("Name"); ?></label>
+                                <label class="col-sm-4 control-label hidden-xs"><?php echo __("Channel Name"); ?></label>
                                 <div class="col-sm-8 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                        <input  id="inputName" placeholder="<?php echo __("Name"); ?>" class="form-control"  type="text" value="" required >
+                                        <input  id="inputName" placeholder="<?php echo __("Channel Name"); ?>" class="form-control"  type="text" value="" required >
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label hidden-xs"><?php echo __("User"); ?></label>
+                                <label class="col-sm-4 control-label hidden-xs"><?php echo __("Username"); ?></label>
                                 <div class="col-sm-8 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                        <input  id="inputUser" placeholder="<?php echo!empty($advancedCustomUser->forceLoginToBeTheEmail) ? "me@example.com" : __("User"); ?>" class="form-control"  type="<?php echo empty($advancedCustomUser->forceLoginToBeTheEmail) ? "text" : "email"; ?>" value="" required >
+                                        <input  id="inputUser" placeholder="<?php echo!empty($advancedCustomUser->forceLoginToBeTheEmail) ? "me@example.com" : __("Username"); ?>" class="form-control"  type="<?php echo empty($advancedCustomUser->forceLoginToBeTheEmail) ? "text" : "email"; ?>" value="" required >
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@ if(!empty($_GET['siteRedirectUri'])){
                                     <div class="col-sm-8 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                            <input  id="inputEmail" placeholder="<?php echo __("E-mail"); ?>" class="form-control"  type="email" value="" required >
+                                            <input  id="inputEmail" name="email" placeholder="<?php echo __("E-mail"); ?>" class="form-control"  type="email" value="" required >
                                         </div>
                                     </div>
                                 </div>
@@ -114,12 +114,10 @@ if(!empty($_GET['siteRedirectUri'])){
                                     </div>
                                 </div>
                             </div>
-
-
                             <!-- Button -->
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary btn-block" ><i class="fas fa-user-plus"></i> <?php echo __("Sign Up"); ?></button>
+                                    <button type="submit" onclick="ValidateEmail(document.signup.email)" class="btn btn-primary btn-block" ><i class="fas fa-user-plus"></i> <?php echo __("Sign Up"); ?></button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -134,7 +132,6 @@ if(!empty($_GET['siteRedirectUri'])){
             </div>
             <script>
                 $(document).ready(function () {
-
                     $('#btnReloadCapcha').click(function () {
                         $('#captcha').attr('src', '<?php echo $global['webSiteRootURL']; ?>captcha?PHPSESSID=<?php echo session_id(); ?>&' + Math.random());
                         $('#captchaText').val('');
@@ -145,6 +142,15 @@ if(!empty($_GET['siteRedirectUri'])){
                         var pass1 = $('#inputPassword').val();
                         var pass2 = $('#inputPasswordConfirm').val();
                         // password dont match
+                        function ValidateEmail(inputText){
+                        var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                        //Checks Email
+                        function ValidateEmail(inputText) {
+                        if(!inputText.value.match(mailformat)) {
+			                modal.hidePleaseWait();
+                            avideoAlert("<?php echo __("Sorry!"); ?>", "<?php echo __("Invalid Email!"); ?>", "error");
+			                return false;
+			            }}}
                         if (pass1 != '' && pass1 != pass2) {
                             modal.hidePleaseWait();
                             avideoAlert("<?php echo __("Sorry!"); ?>", "<?php echo __("Your password does not match!"); ?>", "error");
